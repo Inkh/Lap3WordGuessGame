@@ -17,9 +17,9 @@ namespace WordGuessGame
 
         static void EntryMenu()
         {
-            bool isValidInput = true;
+            bool returnToMenu = true;
 
-            while (isValidInput)
+            while (returnToMenu)
             {
                 Console.WriteLine("Welcome to the word guess game!");
                 Console.WriteLine("[1] Start a game");
@@ -49,7 +49,7 @@ namespace WordGuessGame
                         Console.WriteLine(DeleteAWord(wordPath, userInput = Console.ReadLine()));
                         break;
                     case "5":
-                        isValidInput = false;
+                        returnToMenu = false;
                         break;
                     default:
                         Console.WriteLine("Invalid Input, cannot comprehend. Please try again");
@@ -68,7 +68,7 @@ namespace WordGuessGame
                     {
                         try
                         {
-                            sw.WriteLine("Your list");
+                            sw.WriteLine("Your List: ");
                         }
                         catch (Exception)
                         {
@@ -135,7 +135,8 @@ namespace WordGuessGame
                     try
                     {
                         bool isFound = false;
-                        // Start on the second line so title is preserved
+                        // Start on the second line so title is not factored in
+                        sw.WriteLine("Your List: ");
                         for (int i = 1; i < currentList.Length; i++)
                         {
                             if (currentList[i] != input)
@@ -151,7 +152,6 @@ namespace WordGuessGame
                     }
                     catch (Exception)
                     {
-
                         throw;
                     }
                     finally
