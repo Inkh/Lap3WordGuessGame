@@ -38,9 +38,15 @@ namespace WordGuessGame
                         DisplayCurrentWords(wordPath);
                         break;
                     case "3":
-                        AddMoreWords(wordPath, Console.ReadLine());
+                        DisplayCurrentWords(wordPath);
+                        Console.WriteLine("What word would you like to add?");
+                        AddMoreWords(wordPath, userInput = Console.ReadLine());
+                        Console.WriteLine($"Sweet! {userInput} has been added to your existing list. Returning you to the menu...");
                         break;
                     case "4":
+                        DisplayCurrentWords(wordPath);
+                        Console.WriteLine("What word would you like to erase?");
+                        Console.WriteLine(DeleteAWord(wordPath, userInput = Console.ReadLine()));
                         break;
                     case "5":
                         isValidInput = false;
@@ -108,10 +114,50 @@ namespace WordGuessGame
         {
             try
             {
-                DisplayCurrentWords(wordPath);
                 using(StreamWriter sw = File.AppendText(path))
                 {
                     sw.WriteLine(input);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        static string DeleteAWord(string path, string input)
+        {
+            try
+            {
+                string[] currentList = DisplayCurrentWords(wordPath);
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    try
+                    {
+                        bool isFound = false;
+                        // Start on the second line so title is preserved
+                        for (int i = 1; i < currentList.Length; i++)
+                        {
+                            if (currentList[i] != input)
+                            {
+                                sw.WriteLine(currentList[i]);
+                            }
+                            else if (currentList[i] == input)
+                            {
+                                isFound = true;
+                            }
+                        }
+                        return isFound ? $"{input} has been deleted. Returning you to menu..." : "Word does not exist. Returning you to menu... ";
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                    finally
+                    {
+                        sw.Close();
+                    }
                 }
             }
             catch (Exception)
