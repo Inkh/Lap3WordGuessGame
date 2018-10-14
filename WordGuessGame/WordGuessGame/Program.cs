@@ -10,7 +10,9 @@ namespace WordGuessGame
             Console.WriteLine("Hello World!");
             string wordPath = "../../../wordList.txt";
             CreateFile(wordPath);
-            
+            AddMoreWords(wordPath);
+            DisplayCurrentWords(wordPath);
+
         }
 
         static void CreateFile(string path)
@@ -21,8 +23,7 @@ namespace WordGuessGame
                 {
                     try
                     {
-                        sw.Write("Your list" +
-                            "");
+                        sw.WriteLine("Your list");
                     }
                     catch (Exception)
                     {
@@ -44,15 +45,29 @@ namespace WordGuessGame
 
         static void DisplayCurrentWords(string path)
         {
+            //try
+            //{
+            //    using (StreamReader sr = File.OpenText(path))
+            //    {
+            //        string word = "";
+            //        while ((word = sr.ReadLine()) != null)
+            //        {
+            //            Console.WriteLine(word);
+            //        }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            ////}
             try
             {
-                using (StreamReader sr = File.OpenText(path))
-                {
-                    string word = "";
-                    while ((word = sr.ReadLine()) != null)
-                    {
+                string[] myWords = File.ReadAllLines(path);
 
-                    }
+                foreach (string word in myWords)
+                {
+                    Console.WriteLine(word);
                 }
             }
             catch (Exception)
@@ -62,9 +77,20 @@ namespace WordGuessGame
             }
         }
 
-        static void AddMoreWords()
+        static void AddMoreWords(string path)
         {
+            try
+            {
+                using(StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine("Hey i work too");
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
     }
 }
