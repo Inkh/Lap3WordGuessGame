@@ -10,7 +10,8 @@ namespace WordGuessGame
             Console.WriteLine("Hello World!");
             string wordPath = "../../../wordList.txt";
             CreateFile(wordPath);
-            AddMoreWords(wordPath);
+            Console.WriteLine("Add something yes?");
+            AddMoreWords(wordPath, Console.ReadLine());
             DisplayCurrentWords(wordPath);
 
         }
@@ -19,20 +20,23 @@ namespace WordGuessGame
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(path))
+                if (!File.Exists(path))
                 {
-                    try
+                    using (StreamWriter sw = new StreamWriter(path))
                     {
-                        sw.WriteLine("Your list");
-                    }
-                    catch (Exception)
-                    {
+                        try
+                        {
+                            sw.WriteLine("Your list");
+                        }
+                        catch (Exception)
+                        {
 
-                        throw;
-                    }
-                    finally
-                    {
-                        sw.Close();
+                            throw;
+                        }
+                        finally
+                        {
+                            sw.Close();
+                        }
                     }
                 }
             }
@@ -43,24 +47,8 @@ namespace WordGuessGame
             }
         }
 
-        static void DisplayCurrentWords(string path)
+        static string[] DisplayCurrentWords(string path)
         {
-            //try
-            //{
-            //    using (StreamReader sr = File.OpenText(path))
-            //    {
-            //        string word = "";
-            //        while ((word = sr.ReadLine()) != null)
-            //        {
-            //            Console.WriteLine(word);
-            //        }
-            //    }
-            //}
-            //catch (Exception)
-            //{
-
-            //    throw;
-            ////}
             try
             {
                 string[] myWords = File.ReadAllLines(path);
@@ -69,21 +57,24 @@ namespace WordGuessGame
                 {
                     Console.WriteLine(word);
                 }
+
+                return myWords;
             }
             catch (Exception)
             {
 
                 throw;
             }
+
         }
 
-        static void AddMoreWords(string path)
+        static void AddMoreWords(string path, string input)
         {
             try
             {
                 using(StreamWriter sw = File.AppendText(path))
                 {
-                    sw.WriteLine("Hey i work too");
+                    sw.WriteLine(input);
                 }
             }
             catch (Exception)
