@@ -11,7 +11,7 @@ namespace WordGuessGame
         static void Main(string[] args)
         {
 
-            CreateFile(wordPath);
+            CreateWordFile(wordPath);
             EntryMenu();
         }
 
@@ -33,6 +33,7 @@ namespace WordGuessGame
                 switch (userInput)
                 {
                     case "1":
+                        PlayGame(gamePath);
                         break;
                     case "2":
                         DisplayCurrentWords(wordPath);
@@ -58,7 +59,7 @@ namespace WordGuessGame
             }
         }
 
-        static void CreateFile(string path)
+        static void CreateWordFile(string path)
         {
             try
             {
@@ -164,6 +165,62 @@ namespace WordGuessGame
             {
                 throw;
             }
+        }
+
+        static void CreateGameFile(string path)
+        {
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    using (StreamWriter sw = new StreamWriter(path))
+                    {
+                        try
+                        {
+                            sw.WriteLine("Guess the word!" +
+                                "");
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
+                        finally
+                        {
+                            sw.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        static void PlayGame(string path)
+        {
+            //Reads words file
+            string[] wordList = DisplayCurrentWords(wordPath);
+
+            //Random generator
+            Random rdm = new Random();
+
+            //Generate a random index to pick a random word from list
+            int randIdx = rdm.Next(1,wordList.Length);
+
+            string[] guessList = wordList[randIdx].Split(' ');
+            Console.WriteLine(string.Join(",", guessList));
+            for (int i = 0; i < guessList.Length; i++)
+            {
+                guessList[i] = "_";
+            }
+        }
+
+        static void DeleteGameFile(string path)
+        {
+
         }
     }
 }
