@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WordGuessGame
 {
-    class Program
+    public class Program
     {
         public static string wordPath = "../../../wordList.txt";
         public static string gamePath = "../../../game.txt";
@@ -69,7 +69,7 @@ namespace WordGuessGame
         /// Creates the 'database' for holding our potential words.
         /// </summary>
         /// <param name="path">Path to file</param>
-        static void CreateWordFile(string path)
+        public static void CreateWordFile(string path)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace WordGuessGame
         /// </summary>
         /// <param name="path">File path</param>
         /// <returns>List of words</returns>
-        static string[] DisplayCurrentWords(string path)
+        public static string[] DisplayCurrentWords(string path)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace WordGuessGame
         /// </summary>
         /// <param name="path">File Path</param>
         /// <param name="input">Word to add</param>
-        static void AddMoreWords(string path, string input)
+        public static void AddMoreWords(string path, string input)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace WordGuessGame
         /// <param name="path">File Path</param>
         /// <param name="input">Word to delete</param>
         /// <returns>Sentence indicating whether word was found</returns>
-        static string DeleteAWord(string path, string input)
+        public static string DeleteAWord(string path, string input)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace WordGuessGame
         /// Creates the game file.
         /// </summary>
         /// <param name="path">File Path</param>
-        static void CreateGameFile(string path)
+        public static void CreateGameFile(string path)
         {
             try
             {
@@ -228,7 +228,7 @@ namespace WordGuessGame
         /// Calls method to delete file once game is over.
         /// </summary>
         /// <param name="path">File Path</param>
-        static void PlayGame(string path)
+        public static void PlayGame(string path)
         {
             CreateGameFile(gamePath);
             //Reads words file
@@ -325,7 +325,7 @@ namespace WordGuessGame
         /// Deletes the game file.
         /// </summary>
         /// <param name="path">File Path</param>
-        static void DeleteGameFile(string path)
+        public static void DeleteGameFile(string path)
         {
             File.Delete(path);
         }
@@ -336,7 +336,7 @@ namespace WordGuessGame
         /// <param name="word">Game word</param>
         /// <param name="input">Guessed letter</param>
         /// <returns>True if guessed correctly, False otherwise</returns>
-        static bool ContainsLetter(string word, char input)
+        public static bool ContainsLetter(string word, char input)
         {
             if (word.Contains(input))
             {
@@ -354,7 +354,7 @@ namespace WordGuessGame
         /// <param name="path">File Path</param>
         /// <param name="input">Game word</param>
         /// <param name="guess">Guessed letter</param>
-        static void UpdateWordGuess(string path, char[] input, string guess)
+        public static void UpdateWordGuess(string path, char[] input, string guess)
         {
             try
             {
@@ -385,6 +385,18 @@ namespace WordGuessGame
                         sw.Close();
                     }
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static bool DoesFileExist(string path)
+        {
+            try
+            {
+                return File.Exists(path);
             }
             catch (Exception)
             {

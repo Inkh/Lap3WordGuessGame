@@ -1,0 +1,17 @@
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessTest.deps.json
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessTest.runtimeconfig.json
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessTest.runtimeconfig.dev.json
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessTest.dll
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessTest.pdb
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessGame.dll
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\bin\Debug\netcoreapp2.1\WordGuessGame.pdb
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.csprojAssemblyReference.cache
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.csproj.CoreCompileInputs.cache
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.AssemblyInfoInputs.cache
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.AssemblyInfo.cs
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.csproj.CopyComplete
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.dll
+C:\Users\Jeff\source\repos\Lap3WordGuessGame\WordGuessGame\WordGuessTest\obj\Debug\netcoreapp2.1\WordGuessTest.pdb
