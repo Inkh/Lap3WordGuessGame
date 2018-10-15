@@ -7,6 +7,7 @@ namespace WordGuessGame
     {
         public static string wordPath = "../../../wordList.txt";
         public static string gamePath = "../../../game.txt";
+        public static bool returnToMenu = true;
 
         static void Main(string[] args)
         {
@@ -17,7 +18,6 @@ namespace WordGuessGame
 
         static void EntryMenu()
         {
-            bool returnToMenu = true;
 
             while (returnToMenu)
             {
@@ -215,18 +215,21 @@ namespace WordGuessGame
             char[] wordToGuess = wordList[randIdx].ToCharArray();
 
             //Our output to console. Will be empty at first
-            string[] currentWordProgress = new string[wordToGuess.Length];
+            char[] currentWordProgress = new char[wordToGuess.Length];
 
             //Populate array with underscores if user hasn't guess the letter
             for (int i = 0; i < currentWordProgress.Length; i++)
             {
-                currentWordProgress[i] = "_";
+                currentWordProgress[i] = '_';
             }
 
             //Appends hidden word to game file
             AddMoreWords(gamePath, string.Join(" ", currentWordProgress));
 
             bool gameWon = false;
+
+            //To be populated by guesses
+            string guessSoFar = "";
 
             while (!gameWon)
             {
@@ -235,17 +238,33 @@ namespace WordGuessGame
                 {
                     Console.WriteLine(sentence);
                 }
+
                 Console.WriteLine("Guess a letter: ");
 
                 //Checks if game is won
-                if (Array.IndexOf(currentWordProgress, "_") >= 0)
+                if (Array.IndexOf(currentWordProgress, '_') >= 0)
                 {
                     try
                     {
                         char userInput = Console.ReadLine().ToLower()[0];
+
+                        //Concatenate letter after each user guess
+                        guessSoFar += userInput + " ";
+
+                        //Show list
+                        UpdateWordGuess(gamePath, currentWordProgress, guessSoFar);
+
                         if (ContainsLetter(string.Join("", wordToGuess), userInput))
                         {
-
+                            for(int i = 0; i < wordToGuess.Length; i++)
+                            {
+                                if (wordToGuess[i] == userInput)
+                                {
+                                    currentWordProgress[i] = userInput;
+                                }
+                            }
+                            //Show list
+                            UpdateWordGuess(gamePath, currentWordProgress, guessSoFar);
                         }
                     }
                     catch (Exception)
@@ -253,12 +272,29 @@ namespace WordGuessGame
                         Console.WriteLine("Letters only. Please try again.");
                     }
                 }
+                else
+                {
+                    DeleteGameFile(gamePath);
+                    gameWon = true;
+                    Console.WriteLine("Game won! Would you like to [1] play another game or [2] exit?");
+                    string userInput = Console.ReadLine();
+                    switch (userInput)
+                    {
+                        case "1":
+                            PlayGame(gamePath);
+                            break;
+
+                        case "2":
+                            returnToMenu = false;
+                            break;
+                    }
+                }
             }
         }
 
         static void DeleteGameFile(string path)
         {
-
+            File.Delete(path);
         }
 
         static bool ContainsLetter(string word, char input)
@@ -270,6 +306,44 @@ namespace WordGuessGame
             else
             {
                 return false;
+            }
+        }
+
+        static void UpdateWordGuess(string path, char[] input, string guess)
+        {
+            try
+            {
+                string[] currentList = DisplayCurrentWords(gamePath);
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    try
+                    {
+                        for (int i = 0; i < currentList.Length - 1; i++)
+                        {
+                            if (i == 2)
+                            {
+                                sw.WriteLine(guess);
+                            }
+                            else
+                            {
+                                sw.WriteLine(currentList[i]);
+                            }
+                        }
+                        sw.WriteLine(string.Join(" ", input));
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        sw.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
