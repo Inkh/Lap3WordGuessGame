@@ -36,7 +36,11 @@ namespace WordGuessGame
                         PlayGame(gamePath);
                         break;
                     case "2":
-                        DisplayCurrentWords(wordPath);
+                        string[] list = DisplayCurrentWords(wordPath);
+                        foreach (string word in list)
+                        {
+                            Console.WriteLine(word);
+                        }
                         break;
                     case "3":
                         DisplayCurrentWords(wordPath);
@@ -96,11 +100,6 @@ namespace WordGuessGame
             {
                 string[] myWords = File.ReadAllLines(path);
 
-                foreach (string word in myWords)
-                {
-                    Console.WriteLine(word);
-                }
-
                 return myWords;
             }
             catch (Exception)
@@ -108,7 +107,6 @@ namespace WordGuessGame
 
                 throw;
             }
-
         }
 
         static void AddMoreWords(string path, string input)
@@ -177,8 +175,10 @@ namespace WordGuessGame
                     {
                         try
                         {
-                            sw.WriteLine("Guess the word!" +
-                                "");
+                            sw.WriteLine("Game on!");
+                            sw.WriteLine("You current guesses");
+                            sw.WriteLine(" ");
+                            sw.WriteLine("--------------------");
                         }
                         catch (Exception)
                         {
@@ -201,6 +201,7 @@ namespace WordGuessGame
 
         static void PlayGame(string path)
         {
+            CreateGameFile(gamePath);
             //Reads words file
             string[] wordList = DisplayCurrentWords(wordPath);
 
@@ -210,17 +211,66 @@ namespace WordGuessGame
             //Generate a random index to pick a random word from list
             int randIdx = rdm.Next(1,wordList.Length);
 
-            string[] guessList = wordList[randIdx].Split(' ');
-            Console.WriteLine(string.Join(",", guessList));
-            for (int i = 0; i < guessList.Length; i++)
+            //Splits word into individual chars
+            char[] wordToGuess = wordList[randIdx].ToCharArray();
+
+            //Our output to console. Will be empty at first
+            string[] currentWordProgress = new string[wordToGuess.Length];
+
+            //Populate array with underscores if user hasn't guess the letter
+            for (int i = 0; i < currentWordProgress.Length; i++)
             {
-                guessList[i] = "_";
+                currentWordProgress[i] = "_";
+            }
+
+            //Appends hidden word to game file
+            AddMoreWords(gamePath, string.Join(" ", currentWordProgress));
+
+            bool gameWon = false;
+
+            while (!gameWon)
+            {
+                string[] listToDisplay = DisplayCurrentWords(gamePath);
+                foreach (string sentence in listToDisplay)
+                {
+                    Console.WriteLine(sentence);
+                }
+                Console.WriteLine("Guess a letter: ");
+
+                //Checks if game is won
+                if (Array.IndexOf(currentWordProgress, "_") >= 0)
+                {
+                    try
+                    {
+                        char userInput = Console.ReadLine().ToLower()[0];
+                        if (ContainsLetter(string.Join("", wordToGuess), userInput))
+                        {
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Letters only. Please try again.");
+                    }
+                }
             }
         }
 
         static void DeleteGameFile(string path)
         {
 
+        }
+
+        static bool ContainsLetter(string word, char input)
+        {
+            if (word.Contains(input))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
