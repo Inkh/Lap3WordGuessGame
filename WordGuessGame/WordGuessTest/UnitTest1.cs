@@ -37,23 +37,20 @@ namespace WordGuessTest
             Assert.Equal(4, DisplayCurrentWords(path).Length);
         }
 
-        [Fact]
-        public void DeleteFileTest()
+        [Theory]
+        [InlineData(false, "../../../game.txt")]
+        public void DeleteFileTest(bool expected, string path)
         {
-            string path = "../../../game.txt";
-            CreateGameFile(path);
             DeleteGameFile(path);
 
-            Action DoesExist = (() => DoesFileExist(path));
-            Exception e = Record.Exception(DoesExist);
-            Assert.IsType<FileNotFoundException>(e);
+            bool doesExist = File.Exists(path);
+            Assert.True(expected == doesExist);
         }
 
         [Fact]
         public void DeleteWordTest()
         {
             string path = "../../../wordList.txt";
-            CreateGameFile(path);
             DeleteAWord(path, "phone");
 
             Assert.Equal("Word does not exist. Returning you to menu... ", DeleteAWord(path, "cat"));
@@ -63,7 +60,6 @@ namespace WordGuessTest
         public void AddAWordTest()
         {
             string path = "../../../wordList.txt";
-            CreateGameFile(path);
             AddMoreWords(path, "phone");
             Assert.True(DisplayCurrentWords(path).Length == 2);
         }
